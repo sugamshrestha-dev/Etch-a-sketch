@@ -15,14 +15,29 @@ closeBtn.addEventListener("click", () => {
     changeOverlay.style.display = "none";
 })
 
-confirmBtn.addEventListener("click", () => {
-    let inputVal = document.getElementById("num-val").value;
+// default number of squares.
+makeSquares(16);
 
-    for (let i = 0; i < inputVal * inputVal; i++) {
+function makeSquares(num) {
+    const oldSquares = sqContainer.querySelectorAll(".square");
+    oldSquares.forEach(square => square.remove());
+
+    for (let i = 0; i < num * num; i++) {
         let square = document.createElement("div");
         square.classList.add("square");
-        square.style.width = (100/inputVal) + "%";
-        square.style.height = (100/inputVal) + "%";
+        // defining the width and height of the square.
+        square.style.width = (100/num) + "%";
+        square.style.height = (100/num) + "%";
         sqContainer.appendChild(square);
     }
+}
+
+confirmBtn.addEventListener("click", () => {
+    // take input from the user.
+    let inputVal = document.getElementById("num-val").value;
+    makeSquares(inputVal);
+
+    changeOverlay.style.display = "none";
+    // empty the fields of the input box.
+    document.getElementById("num-val").value = "";
 })
